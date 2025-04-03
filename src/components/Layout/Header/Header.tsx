@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { logoutUser } from "../../../reducers/authSlice";
 import { ROUTES } from "../../../constants/routes";
 import styles from "./Header.module.css";
@@ -23,8 +23,13 @@ const Header: React.FC = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.leftSection}>
-          <Link to={ROUTES.HOME} className={styles.logo}>
-            Строительный магазин
+          <Link to={ROUTES.HOME} className={styles.logoContainer}>
+            <img
+              src="/logo-stroy.jpg"
+              alt="Stroy City Logo"
+              className={styles.logo}
+            />
+            <span className={styles.logoText}>Stroy City</span>
           </Link>
 
           <nav className={styles.nav}>

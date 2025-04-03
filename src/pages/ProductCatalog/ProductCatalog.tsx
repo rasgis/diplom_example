@@ -3,8 +3,10 @@ import { Container, Typography, Box } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchCategories } from "../../reducers/categorySlice";
 import CategoryGrid from "../../components/CategoryGrid/CategoryGrid";
+import Loader from "../../components/Loader";
 import { Category } from "../../types";
 import { categoryService } from "../../services/categoryService";
+import styles from "./ProductCatalog.module.css";
 
 const ProductCatalog: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,15 +22,15 @@ const ProductCatalog: React.FC = () => {
 
   if (categoriesLoading) {
     return (
-      <Container>
-        <Typography>Загрузка...</Typography>
+      <Container className={styles.container}>
+        <Loader message="Загрузка категорий..." />
       </Container>
     );
   }
 
   if (categoriesError) {
     return (
-      <Container>
+      <Container className={styles.container}>
         <Typography color="error">{categoriesError}</Typography>
       </Container>
     );
@@ -37,16 +39,21 @@ const ProductCatalog: React.FC = () => {
   const rootCategories = categoryService.buildCategoryTree(categories);
 
   return (
-    <Container>
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
+    <Container className={styles.container}>
+      <Box className={styles.content}>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          className={styles.title}
+        >
           Каталог товаров
         </Typography>
 
         {rootCategories.length === 0 ? (
           <Typography>Категории не найдены</Typography>
         ) : (
-          <Box sx={{ mb: 4 }}>
+          <Box className={styles.categoriesContainer}>
             <CategoryGrid categories={rootCategories} />
           </Box>
         )}

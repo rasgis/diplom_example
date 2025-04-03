@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { fetchProducts, deleteProduct } from "../../../reducers";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { fetchProducts, deleteProduct } from "../../../reducers/productSlice";
+import { fetchCategories } from "../../../reducers/categorySlice";
 import { ROUTES } from "../../../constants/routes";
 import Modal from "../../../components/Modal/Modal";
 import styles from "./Admin.module.css";
@@ -13,12 +14,14 @@ const ProductList: React.FC = () => {
     loading,
     error,
   } = useAppSelector((state) => state.products);
+  const { items: categories } = useAppSelector((state) => state.categories);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(fetchCategories());
   }, [dispatch]);
 
   const handleDeleteClick = (productId: string) => {
@@ -41,6 +44,12 @@ const ProductList: React.FC = () => {
   const handleDeleteCancel = () => {
     setIsDeleteModalOpen(false);
     setProductToDelete(null);
+  };
+
+  // Функция для получения названия категории по ID
+  const getCategoryName = (categoryId: string) => {
+    const category = categories.find((cat) => cat.id === categoryId);
+    return category ? category.name : "Неизвестная категория";
   };
 
   if (loading) {
@@ -73,7 +82,7 @@ const ProductList: React.FC = () => {
               <th>Название</th>
               <th>Категория</th>
               <th>Цена</th>
-              <th>В наличии</th>
+              <th>Единица измерения</th>
               <th>Действия</th>
             </tr>
           </thead>
@@ -89,9 +98,9 @@ const ProductList: React.FC = () => {
                   />
                 </td>
                 <td>{product.name}</td>
-                <td>{product.category}</td>
+                <td>{getCategoryName(product.categoryId)}</td>
                 <td>{product.price} ₽</td>
-                <td>{product.stock}</td>
+                <td>{product.unitOfMeasure}</td>
                 <td>
                   <div className={styles.actions}>
                     <Link

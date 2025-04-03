@@ -36,39 +36,18 @@ class CategoryService {
     await axios.delete(`${API_URL}/categories/${id}`);
   }
 
-  buildCategoryTree(categories: Category[]): CategoryWithChildren[] {
-    const categoryMap = new Map<string, CategoryWithChildren>();
-    const rootCategories: CategoryWithChildren[] = [];
-
-    // Создаем Map для быстрого доступа к категориям
-    categories.forEach((category) => {
-      categoryMap.set(category.id, { ...category, children: [] });
-    });
-
-    // Строим дерево категорий
-    categories.forEach((category) => {
-      const categoryWithChildren = categoryMap.get(category.id)!;
-      if (category.parentId) {
-        const parent = categoryMap.get(category.parentId);
-        if (parent) {
-          parent.children.push(categoryWithChildren);
-        }
-      } else {
-        rootCategories.push(categoryWithChildren);
-      }
-    });
-
-    return rootCategories;
+  buildCategoryTree(categories: Category[]): Category[] {
+    return categories.filter((category) => !category.parentId);
   }
 
   getCategoryPath(categories: Category[], categoryId: string): Category[] {
     const path: Category[] = [];
-    let currentCategory = categories.find((c) => c.id === categoryId);
+    let currentCategory = categories.find((cat) => cat.id === categoryId);
 
     while (currentCategory) {
       path.unshift(currentCategory);
       currentCategory = categories.find(
-        (c) => c.id === currentCategory?.parentId
+        (cat) => cat.id === currentCategory?.parentId
       );
     }
 

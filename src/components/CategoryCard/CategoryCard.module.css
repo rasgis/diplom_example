@@ -3,6 +3,8 @@
   color: inherit;
   display: block;
   height: 100%;
+  width: 100%;
+  max-width: 280px;
 }
 
 .card {
@@ -10,6 +12,8 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease-in-out;
+  text-align: center;
+  width: 100%;
 }
 
 .card:hover {
@@ -20,6 +24,7 @@
 .media {
   object-fit: cover;
   height: 200px;
+  width: 100%;
 }
 
 .title {

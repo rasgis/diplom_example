@@ -30,9 +30,9 @@
       "name": "Цемент М500",
       "description": "Высококачественный портландцемент для строительных работ папа",
       "price": 450,
+      "categoryId": "7",
       "image": "https://fastly.picsum.photos/id/402/200/300.jpg?hmac=JmZsqnQgJgxs4tbKwb8Tdu3r-B0tEGN7nrKEb1jBB0Y",
-      "stock": 22,
-      "categoryId": 1,
+      "unitOfMeasure": "шт",
       "id": "1"
     },
     {
@@ -144,15 +144,6 @@
       "updatedAt": "2024-01-01T00:00:00.000Z"
     },
     {
-      "id": "1743515507474",
-      "name": "Кровельные материалы",
-      "image": "/1743515507473-634970600.webp",
-      "slug": "krovelnye-materialy-2",
-      "order": 12,
-      "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
-    },
-    {
       "name": "Гибкая черепица",
       "image": "/1743661095280-812377846.jpg",
       "slug": "проф-настил",
@@ -199,14 +190,6 @@
       "order": 18,
       "parentId": "1",
       "id": "Eqy3TMf"
-    },
-    {
-      "name": "ц",
-      "image": "/1743661952152-68459975.jpg",
-      "slug": "ц",
-      "order": 19,
-      "parentId": "1",
-      "id": "0bj-L-Z"
     }
   ]
 }

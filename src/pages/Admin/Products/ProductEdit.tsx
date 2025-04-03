@@ -4,10 +4,12 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import {
   updateProduct,
   fetchProductById,
-  fetchCategories,
-} from "../../../reducers";
+} from "../../../reducers/productSlice";
+import { fetchCategories } from "../../../reducers/categorySlice";
 import { Product } from "../../../types/product";
 import { Category } from "../../../types/category";
+import ImageUpload from "../../../components/ImageUpload/ImageUpload";
+import { fileService } from "../../../services/fileService";
 import styles from "./Admin.module.css";
 
 const ProductEdit: React.FC = () => {
@@ -18,14 +20,18 @@ const ProductEdit: React.FC = () => {
     (state) => state.products
   );
   const { items: categories } = useAppSelector((state) => state.categories);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePath, setImagePath] = useState<string | undefined>(undefined);
 
   const [formData, setFormData] = useState<Partial<Product>>({
     name: "",
     description: "",
     price: 0,
-    category: "",
+    categoryId: "",
     image: "",
-    stock: 0,
+    unitOfMeasure: "шт",
   });
 
   useEffect(() => {
@@ -41,10 +47,11 @@ const ProductEdit: React.FC = () => {
         name: selectedProduct.name,
         description: selectedProduct.description,
         price: selectedProduct.price,
-        category: selectedProduct.category,
+        categoryId: selectedProduct.categoryId,
         image: selectedProduct.image,
-        stock: selectedProduct.stock,
+        unitOfMeasure: selectedProduct.unitOfMeasure || "шт",
       });
+      setImagePath(selectedProduct.image);
     }
   }, [selectedProduct]);
 
@@ -52,11 +59,34 @@ const ProductEdit: React.FC = () => {
     e.preventDefault();
     if (!id) return;
 
+    setIsLoading(true);
+    setError(null);
+
     try {
-      await dispatch(updateProduct({ id, product: formData })).unwrap();
+      let finalImagePath = imagePath || "";
+
+      if (imageFile) {
+        console.log("Uploading image:", imageFile);
+        finalImagePath = await fileService.saveImage(imageFile);
+        console.log("Image uploaded successfully:", finalImagePath);
+      }
+
+      const productData = {
+        ...formData,
+        image: finalImagePath,
+      };
+
+      await dispatch(updateProduct({ id, product: productData })).unwrap();
       navigate("/admin/products");
     } catch (error) {
       console.error("Error updating product:", error);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Произошла ошибка при обновлении товара"
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -68,17 +98,58 @@ const ProductEdit: React.FC = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "price" || name === "stock" ? Number(value) : value,
+      [name]: name === "price" ? Number(value) : value,
     }));
   };
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const categoryId = e.target.value;
-    setFormData((prev: Partial<Product>) => ({
-      ...prev,
-      categoryId: categoryId ? parseInt(categoryId) : undefined,
-    }));
+  const handleImageSelect = (file: File) => {
+    console.log("Image selected:", file);
+    setImageFile(file);
   };
+
+  // Функция для построения дерева категорий
+  const buildCategoryTree = (
+    categories: Category[],
+    parentId?: string
+  ): Category[] => {
+    return categories
+      .filter((category) => category.parentId === parentId)
+      .map((category) => ({
+        ...category,
+        children: buildCategoryTree(categories, category.id),
+      }));
+  };
+
+  // Функция для рекурсивного рендеринга опций категорий
+  const renderCategoryOptions = (categories: Category[], level = 0) => {
+    return categories.map((category) => (
+      <React.Fragment key={category.id}>
+        <option value={category.id} style={{ paddingLeft: `${level * 20}px` }}>
+          {level > 0 ? "— " : ""}
+          {category.name}
+        </option>
+        {category.children &&
+          renderCategoryOptions(category.children, level + 1)}
+      </React.Fragment>
+    ));
+  };
+
+  // Построение дерева категорий
+  const categoryTree = buildCategoryTree(categories);
+
+  // Список единиц измерения
+  const unitsOfMeasure = [
+    "шт",
+    "п.м.",
+    "м²",
+    "м³",
+    "кг",
+    "л",
+    "уп",
+    "компл",
+    "рул",
+    "пак",
+  ];
 
   if (productLoading) {
     return <div className={styles.loading}>Загрузка...</div>;
@@ -133,58 +204,56 @@ const ProductEdit: React.FC = () => {
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="category">Категория</label>
+          <label htmlFor="unitOfMeasure">Единица измерения</label>
           <select
-            id="category"
-            name="category"
-            value={formData.category}
-            onChange={handleCategoryChange}
+            id="unitOfMeasure"
+            name="unitOfMeasure"
+            value={formData.unitOfMeasure}
+            onChange={handleChange}
             required
           >
-            <option value="">Выберите категорию</option>
-            {categories.map((category: Category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
+            {unitsOfMeasure.map((unit) => (
+              <option key={unit} value={unit}>
+                {unit}
               </option>
             ))}
           </select>
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="image">URL изображения</label>
-          <input
-            type="text"
-            id="image"
-            name="image"
-            value={formData.image}
+          <label htmlFor="categoryId">Категория</label>
+          <select
+            id="categoryId"
+            name="categoryId"
+            value={formData.categoryId}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="">Выберите категорию</option>
+            {renderCategoryOptions(categoryTree)}
+          </select>
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="stock">Количество в наличии</label>
-          <input
-            type="number"
-            id="stock"
-            name="stock"
-            value={formData.stock}
-            onChange={handleChange}
-            min="0"
-            required
+          <label>Изображение товара</label>
+          <ImageUpload
+            onImageSelect={handleImageSelect}
+            currentImage={imagePath}
           />
         </div>
 
+        {error && <div className={styles.error}>{error}</div>}
+
         <div className={styles.formActions}>
-          <button type="submit" className={styles.submitButton}>
-            Сохранить изменения
-          </button>
           <button
             type="button"
             onClick={() => navigate("/admin/products")}
-            className={styles.cancelButton}
+            disabled={isLoading}
           >
             Отмена
+          </button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Сохранение..." : "Сохранить изменения"}
           </button>
         </div>
       </form>

@@ -7,6 +7,7 @@ export interface Category {
   order?: number;
   createdAt: string;
   updatedAt: string;
+  children?: Category[];
 }
 
 export interface CategoryWithChildren extends Category {

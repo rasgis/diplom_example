@@ -13,8 +13,11 @@ import { fetchCategories } from "../../reducers/categorySlice";
 import { fetchProducts } from "../../reducers/productSlice";
 import CategoryGrid from "../../components/CategoryGrid/CategoryGrid";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import Loader from "../../components/Loader";
 import { ROUTES } from "../../constants/routes";
 import { Category, Product } from "../../types";
+import { categoryService } from "../../services/categoryService";
+import styles from "./CategoryPage.module.css";
 
 const CategoryPage: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -39,15 +42,15 @@ const CategoryPage: React.FC = () => {
 
   if (categoriesLoading || productsLoading) {
     return (
-      <Container>
-        <Typography>Загрузка...</Typography>
+      <Container className={styles.container}>
+        <Loader message="Загрузка категории и товаров..." />
       </Container>
     );
   }
 
   if (categoriesError || productsError) {
     return (
-      <Container>
+      <Container className={styles.container}>
         <Typography color="error">
           {categoriesError || productsError}
         </Typography>
@@ -61,11 +64,17 @@ const CategoryPage: React.FC = () => {
 
   if (!currentCategory) {
     return (
-      <Container>
+      <Container className={styles.container}>
         <Typography>Категория не найдена</Typography>
       </Container>
     );
   }
+
+  // Получаем полный путь категории
+  const categoryPath = categoryService.getCategoryPath(
+    categories,
+    categoryId || ""
+  );
 
   // Фильтруем только подкатегории текущей категории
   const subcategories = categories.filter(
@@ -78,22 +87,48 @@ const CategoryPage: React.FC = () => {
   );
 
   return (
-    <Container>
-      <Box sx={{ my: 4 }}>
-        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 2 }}>
+    <Container className={styles.container}>
+      <Box className={styles.content}>
+        <Breadcrumbs aria-label="breadcrumb" className={styles.breadcrumbs}>
           <MuiLink component={Link} to={ROUTES.CATALOG} color="inherit">
             Каталог
           </MuiLink>
-          <Typography color="text.primary">{currentCategory.name}</Typography>
+          {categoryPath.map((category, index) => {
+            const isLast = index === categoryPath.length - 1;
+            return isLast ? (
+              <Typography key={category.id} color="text.primary">
+                {category.name}
+              </Typography>
+            ) : (
+              <MuiLink
+                key={category.id}
+                component={Link}
+                to={`${ROUTES.CATEGORY.replace(":categoryId", category.id)}`}
+                color="inherit"
+              >
+                {category.name}
+              </MuiLink>
+            );
+          })}
         </Breadcrumbs>
 
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          className={styles.title}
+        >
           {currentCategory.name}
         </Typography>
 
         {subcategories.length > 0 && (
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
+          <Box className={styles.section}>
+            <Typography
+              variant="h5"
+              component="h2"
+              gutterBottom
+              className={styles.sectionTitle}
+            >
               Подкатегории
             </Typography>
             <CategoryGrid categories={subcategories} />
@@ -101,11 +136,16 @@ const CategoryPage: React.FC = () => {
         )}
 
         {categoryProducts.length > 0 && (
-          <Box sx={{ mt: 4 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
+          <Box className={styles.section}>
+            <Typography
+              variant="h5"
+              component="h2"
+              gutterBottom
+              className={styles.sectionTitle}
+            >
               Товары в категории
             </Typography>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} className={styles.productGrid}>
               {categoryProducts.map((product: Product) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
                   <ProductCard product={product} />
@@ -116,7 +156,9 @@ const CategoryPage: React.FC = () => {
         )}
 
         {subcategories.length === 0 && categoryProducts.length === 0 && (
-          <Typography>В данной категории нет подкатегорий и товаров</Typography>
+          <Typography className={styles.emptyMessage}>
+            В данной категории нет подкатегорий и товаров
+          </Typography>
         )}
       </Box>
     </Container>
