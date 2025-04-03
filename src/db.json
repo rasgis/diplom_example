@@ -1,0 +1,212 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Admin",
+      "email": "admin@example.com",
+      "login": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": "1743496257325",
+      "name": "andrey",
+      "email": "andrey@mail.ru",
+      "login": "andrey",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "1743498681585",
+      "name": "ivan",
+      "email": "ivan@mail.ru",
+      "login": "ivan",
+      "password": "123456",
+      "role": "user"
+    }
+  ],
+  "products": [
+    {
+      "name": "Цемент М500",
+      "description": "Высококачественный портландцемент для строительных работ папа",
+      "price": 450,
+      "image": "https://fastly.picsum.photos/id/402/200/300.jpg?hmac=JmZsqnQgJgxs4tbKwb8Tdu3r-B0tEGN7nrKEb1jBB0Y",
+      "stock": 22,
+      "categoryId": 1,
+      "id": "1"
+    },
+    {
+      "name": "Кирпич красный",
+      "description": "Облицовочный кирпич для фасадных работ",
+      "price": 25,
+      "image": "https://fastly.picsum.photos/id/646/200/300.jpg?hmac=qCJ0bf6G6oSxx8YMMc1ZLVryK-w596XjRD3o8cXQLFc",
+      "stock": 500,
+      "categoryId": 3,
+      "id": "2"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Кровельные материалы",
+      "image": "/1.jpg",
+      "slug": "krovelnye-materialy",
+      "order": 1,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Стеновые материалы",
+      "image": "/2.jpg",
+      "slug": "stenovye-materialy",
+      "order": 2,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Фасадные материалы",
+      "image": "/3.jpg",
+      "slug": "fasadnye-materialy",
+      "order": 3,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "Водосточные системы",
+      "image": "/4.jpg",
+      "slug": "vodostochnye-sistemy",
+      "order": 4,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "Мансардные окна",
+      "image": "/5.webp",
+      "slug": "mansardnye-okna",
+      "order": 5,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "name": "Чердачные лестницы",
+      "image": "/6.webp",
+      "slug": "cherdachnye-lestnicy",
+      "order": 6,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "7",
+      "name": "Заборы",
+      "image": "/7.jpg",
+      "slug": "zabory",
+      "order": 7,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "8",
+      "name": "Материалы для ландшафтного дизайна",
+      "image": "/8.jpg",
+      "slug": "materialy-dlya-landshaftnogo-dizayna",
+      "order": 8,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "9",
+      "name": "Дымоходы",
+      "image": "/9.webp",
+      "slug": "dymohody",
+      "order": 9,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Комплектующие для кровли",
+      "image": "/1743517848643-880297283.jpeg",
+      "slug": "komplektuyushchie-dlya-krovli",
+      "order": 10,
+      "id": "10"
+    },
+    {
+      "id": "1743515507473",
+      "name": "Утеплители, пленки, OSP",
+      "image": "/11.webp",
+      "slug": "utepliteli-plenki-osp",
+      "order": 11,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "1743515507474",
+      "name": "Кровельные материалы",
+      "image": "/1743515507473-634970600.webp",
+      "slug": "krovelnye-materialy-2",
+      "order": 12,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "name": "Гибкая черепица",
+      "image": "/1743661095280-812377846.jpg",
+      "slug": "проф-настил",
+      "order": 12,
+      "parentId": "1",
+      "id": "GiU3FGz"
+    },
+    {
+      "name": "Металло-черепица",
+      "image": "/1743661154091-351883154.jpg",
+      "slug": "металло-черепица",
+      "order": 13,
+      "parentId": "1",
+      "id": "EMXI54-"
+    },
+    {
+      "name": "Композитная черепица",
+      "image": "/1743661226221-105742886.jpg",
+      "slug": "композитная-черепица",
+      "order": 15,
+      "parentId": "1",
+      "id": "NErEUHP"
+    },
+    {
+      "name": "Фальцевая кровля",
+      "image": "/1743661253137-186064947.jpg",
+      "slug": "фальцевая-кровля",
+      "order": 16,
+      "parentId": "1",
+      "id": "A4tnmes"
+    },
+    {
+      "name": "Керамическая черепица",
+      "image": "/1743661282750-137601744.jpg",
+      "slug": "керамическая-черепица",
+      "order": 17,
+      "parentId": "1",
+      "id": "nAgLBZ-"
+    },
+    {
+      "name": "Цементно-песчаная черепица",
+      "image": "/1743661315700-838838321.jpg",
+      "slug": "цементно-песчаная-черепица",
+      "order": 18,
+      "parentId": "1",
+      "id": "Eqy3TMf"
+    },
+    {
+      "name": "ц",
+      "image": "/1743661952152-68459975.jpg",
+      "slug": "ц",
+      "order": 19,
+      "parentId": "1",
+      "id": "0bj-L-Z"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+.categoryGrid {
+  margin: 20px 0;
+}
+
+.categoryGrid :global(.MuiGrid-container) {
+  margin: -12px;
+}
+
+.categoryGrid :global(.MuiGrid-item) {
+  padding: 12px;
+}
