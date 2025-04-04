@@ -7,6 +7,9 @@ import styles from "./Header.module.css";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import CategoryIcon from "@mui/icons-material/Category";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -34,7 +37,12 @@ const Header: React.FC = () => {
 
           <nav className={styles.nav}>
             <Link to={ROUTES.CATALOG} className={styles.navLink}>
+              <CategoryIcon className={styles.navIcon} />
               Каталог
+            </Link>
+            <Link to={ROUTES.ALL_PRODUCTS} className={styles.navLink}>
+              <ShoppingBagIcon className={styles.navIcon} />
+              Все товары
             </Link>
           </nav>
         </div>
@@ -54,8 +62,9 @@ const Header: React.FC = () => {
           )}
 
           <div className={styles.cart}>
-            <Link to="/cart" className={styles.cartLink}>
-              Корзина ({items.length})
+            <Link to={ROUTES.CART} className={styles.cartLink}>
+              <ShoppingCartIcon className={styles.cartIcon} />
+              <span>Корзина ({items.length})</span>
             </Link>
           </div>
 
@@ -73,10 +82,7 @@ const Header: React.FC = () => {
             ) : (
               <div className={styles.authLinks}>
                 <Link to={ROUTES.LOGIN} className={styles.authLink}>
-                  Войти
-                </Link>
-                <Link to={ROUTES.REGISTER} className={styles.authLink}>
-                  Регистрация
+                  Войти / Регистрация
                 </Link>
               </div>
             )}

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { User, LoginCredentials, RegisterCredentials } from "../types/auth";
 import { authService } from "../services/authService";
+import { loadCart } from "./cartSlice";
 
 interface AuthState {
   user: User | null;
@@ -18,23 +19,32 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (credentials: LoginCredentials) => {
+  async (credentials: LoginCredentials, { dispatch }) => {
     const user = await authService.login(credentials);
+    // Загружаем корзину из localStorage при входе
+    dispatch(loadCart());
     return user;
   }
 );
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (credentials: RegisterCredentials) => {
+  async (credentials: RegisterCredentials, { dispatch }) => {
     const user = await authService.register(credentials);
+    // Загружаем корзину из localStorage при регистрации
+    dispatch(loadCart());
     return user;
   }
 );
 
-export const logoutUser = createAsyncThunk("auth/logout", async () => {
-  await authService.logout();
-});
+export const logoutUser = createAsyncThunk(
+  "auth/logout",
+  async (_, { dispatch }) => {
+    await authService.logout();
+    // Загружаем корзину гостя при выходе
+    dispatch(loadCart());
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",

@@ -25,13 +25,16 @@
 
 .image {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0.5rem;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  width: calc(100% - 1rem);
+  height: calc(100% - 1rem);
   object-fit: cover;
   transition: transform 0.5s ease;
   will-change: transform;
+  border-radius: 4px;
 }
 
 .card:hover .image {
@@ -62,7 +65,7 @@
   margin: 0 0 1rem 0 !important;
   flex-grow: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -82,7 +85,7 @@
 .price {
   font-weight: 600 !important;
   color: #1976d2;
-  margin: 0 0 0.5rem 0 !important;
+  margin: 0 0 1rem 0 !important;
   font-size: 1.2rem !important;
 }
 
@@ -99,27 +102,45 @@
 }
 
 .actions {
-  margin-top: auto;
-  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid #eee;
-  background: white;
+  margin-top: auto;
 }
 
-.button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: #1976d2;
-  color: white;
+.cartButton {
+  width: 100%;
+  text-transform: none !important;
+  font-size: 1rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 4px !important;
+  background-color: #1976d2 !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+}
+
+.cartButton:hover {
+  background-color: #1565c0 !important;
+  transform: translateY(-1px);
+}
+
+.cardLink {
   text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  color: inherit;
+  display: block;
+  height: 100%;
 }
 
-.button:hover {
-  background-color: #1565c0;
+.cartButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.cartButton {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
 }
 
 @media (max-width: 600px) {

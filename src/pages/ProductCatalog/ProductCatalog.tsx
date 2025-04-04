@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchCategories } from "../../reducers/categorySlice";
 import CategoryGrid from "../../components/CategoryGrid/CategoryGrid";
 import Loader from "../../components/Loader";
-import { Category } from "../../types";
 import { categoryService } from "../../services/categoryService";
 import styles from "./ProductCatalog.module.css";
 
@@ -51,7 +50,7 @@ const ProductCatalog: React.FC = () => {
         </Typography>
 
         {rootCategories.length === 0 ? (
-          <Typography>Категории не найдены</Typography>
+          <Typography>Нет доступных категорий</Typography>
         ) : (
           <Box className={styles.categoriesContainer}>
             <CategoryGrid categories={rootCategories} />

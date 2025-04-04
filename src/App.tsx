@@ -21,8 +21,10 @@ import ProductEdit from "./pages/Admin/Products/ProductEdit";
 import ProductCatalog from "./pages/ProductCatalog/ProductCatalog";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
+import AllProducts from "./pages/AllProducts";
 import NotFound from "./pages/NotFound";
 import CategoryListContainer from "./pages/Admin/Categories";
+import Cart from "./pages/Cart/Cart";
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -52,6 +54,8 @@ const App: React.FC = () => {
             <Route path={ROUTES.CATALOG} element={<ProductCatalog />} />
             <Route path={ROUTES.CATEGORY} element={<CategoryPage />} />
             <Route path={ROUTES.PRODUCT_DETAIL} element={<ProductDetail />} />
+            <Route path={ROUTES.ALL_PRODUCTS} element={<AllProducts />} />
+            <Route path={ROUTES.CART} element={<Cart />} />
             <Route
               path={ROUTES.ADMIN.PRODUCTS}
               element={

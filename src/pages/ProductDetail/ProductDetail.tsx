@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchProductById } from "../../reducers/productSlice";
 import { fetchCategories } from "../../reducers/categorySlice";
+import { addToCart } from "../../reducers/cartSlice";
 import {
   Container,
   Typography,
@@ -10,6 +11,9 @@ import {
   Grid,
   Breadcrumbs,
   Link as MuiLink,
+  Button,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { ROUTES } from "../../constants/routes";
 import { categoryService } from "../../services/categoryService";
@@ -28,6 +32,7 @@ const ProductDetail: React.FC = () => {
     loading: categoriesLoading,
     error: categoriesError,
   } = useAppSelector((state) => state.categories);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -35,6 +40,17 @@ const ProductDetail: React.FC = () => {
     }
     dispatch(fetchCategories());
   }, [dispatch, id]);
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart({ ...product, quantity: 1 }));
+      setOpenSnackbar(true);
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
 
   if (productLoading || categoriesLoading) {
     return (
@@ -98,28 +114,55 @@ const ProductDetail: React.FC = () => {
           <Typography color="text.primary">{product.name}</Typography>
         </Breadcrumbs>
 
-        <div className={styles.container}>
-          <div className={styles.product}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={6}>
             <img
               src={product.image}
               alt={product.name}
               className={styles.image}
             />
-            <div className={styles.info}>
-              <h1 className={styles.title}>{product.name}</h1>
-              <p className={styles.description}>{product.description}</p>
-              <div className={styles.price}>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box className={styles.info}>
+              <Typography variant="h4" className={styles.title}>
+                {product.name}
+              </Typography>
+              <Typography className={styles.description}>
+                {product.description}
+              </Typography>
+              <Typography className={styles.price}>
                 {product.price} ₽ / {product.unitOfMeasure}
-              </div>
-              {productCategory && (
-                <div className={styles.category}>
-                  Категория: {productCategory.name}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+              </Typography>
+              <Typography className={styles.category}>
+                Категория: {productCategory?.name || "Неизвестная категория"}
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={handleAddToCart}
+                sx={{ mt: 2 }}
+              >
+                Добавить в корзину
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
       </Box>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Товар добавлен в корзину
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

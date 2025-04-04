@@ -16,9 +16,13 @@
 
 .image {
   width: 100%;
+  max-width: 500px;
   height: auto;
   border-radius: 4px;
   object-fit: cover;
+  margin: 0 auto;
+  display: block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .info {

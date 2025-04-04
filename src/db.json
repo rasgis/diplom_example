@@ -23,25 +23,33 @@
       "login": "ivan",
       "password": "123456",
       "role": "user"
+    },
+    {
+      "id": "1743683151895",
+      "name": "Отец",
+      "email": "otec@mail.ru",
+      "login": "otec",
+      "password": "123456",
+      "role": "user"
     }
   ],
   "products": [
     {
       "name": "Цемент М500",
-      "description": "Высококачественный портландцемент для строительных работ папа",
+      "description": "йцйцйцыйцы",
       "price": 450,
-      "categoryId": "7",
-      "image": "https://fastly.picsum.photos/id/402/200/300.jpg?hmac=JmZsqnQgJgxs4tbKwb8Tdu3r-B0tEGN7nrKEb1jBB0Y",
-      "unitOfMeasure": "шт",
+      "categoryId": "GiU3FGz",
+      "image": "/1743691588293-518354573.jpg",
+      "unitOfMeasure": "л",
       "id": "1"
     },
     {
       "name": "Кирпич красный",
       "description": "Облицовочный кирпич для фасадных работ",
       "price": 25,
+      "categoryId": "7",
       "image": "https://fastly.picsum.photos/id/646/200/300.jpg?hmac=qCJ0bf6G6oSxx8YMMc1ZLVryK-w596XjRD3o8cXQLFc",
-      "stock": 500,
-      "categoryId": 3,
+      "unitOfMeasure": "шт",
       "id": "2"
     }
   ],
@@ -148,7 +156,7 @@
       "image": "/1743661095280-812377846.jpg",
       "slug": "проф-настил",
       "order": 12,
-      "parentId": "1",
+      "parentId": "5",
       "id": "GiU3FGz"
     },
     {
