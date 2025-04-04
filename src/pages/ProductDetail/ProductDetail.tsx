@@ -33,6 +33,7 @@ const ProductDetail: React.FC = () => {
     error: categoriesError,
   } = useAppSelector((state) => state.categories);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (id) {
@@ -136,15 +137,17 @@ const ProductDetail: React.FC = () => {
               <Typography className={styles.category}>
                 Категория: {productCategory?.name || "Неизвестная категория"}
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={handleAddToCart}
-                sx={{ mt: 2 }}
-              >
-                Добавить в корзину
-              </Button>
+              {isAuthenticated && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  onClick={handleAddToCart}
+                  sx={{ mt: 2 }}
+                >
+                  Добавить в корзину
+                </Button>
+              )}
             </Box>
           </Grid>
         </Grid>

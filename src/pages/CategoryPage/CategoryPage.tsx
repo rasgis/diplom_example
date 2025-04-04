@@ -32,6 +32,7 @@ const CategoryPage: React.FC = () => {
     loading: productsLoading,
     error: productsError,
   } = useAppSelector((state) => state.products);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (categoryId) {
@@ -148,7 +149,10 @@ const CategoryPage: React.FC = () => {
             <Grid container spacing={3} className={styles.productGrid}>
               {categoryProducts.map((product: Product) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                  <ProductCard product={product} />
+                  <ProductCard
+                    product={product}
+                    isAuthenticated={isAuthenticated}
+                  />
                 </Grid>
               ))}
             </Grid>

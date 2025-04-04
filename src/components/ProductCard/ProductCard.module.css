@@ -4,15 +4,17 @@
   flex-direction: column;
   transition: all 0.3s ease;
   cursor: pointer;
-  background: white;
+  background: #1d1e24;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(59, 134, 127, 0.2);
+  border: 1px solid rgba(39, 184, 140, 0.7);
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(11, 224, 184, 0.5);
+  border-color: rgba(31, 238, 176, 0.7);
 }
 
 .imageContainer {
@@ -20,7 +22,7 @@
   width: 100%;
   padding-top: 100%;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: #1d1e24;
 }
 
 .image {
@@ -38,7 +40,7 @@
 }
 
 .card:hover .image {
-  transform: scale(1.1);
+  transform: scale(1.03);
 }
 
 .content {
@@ -46,7 +48,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: #1d1e24;
 }
 
 .title {
@@ -58,10 +60,11 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #d4ffea;
 }
 
 .description {
-  color: #666;
+  color: #d4ffea;
   margin: 0 0 1rem 0 !important;
   flex-grow: 1;
   display: -webkit-box;
@@ -70,33 +73,34 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 0.9rem;
+  opacity: 0.7;
 }
 
 .category {
-  color: #1976d2;
+  color: #d4ffea;
   font-size: 0.875rem;
   margin: 0 0 0.5rem 0 !important;
   padding: 0.25rem 0.5rem;
-  background-color: rgba(25, 118, 210, 0.1);
+  background-color: rgba(14, 236, 196, 0.2);
   border-radius: 4px;
   display: inline-block;
 }
 
 .price {
   font-weight: 600 !important;
-  color: #1976d2;
+  color: #f8c06d;
   margin: 0 0 1rem 0 !important;
   font-size: 1.2rem !important;
 }
 
 .stock {
-  color: #4caf50;
+  color: #0be0b8;
   font-size: 0.875rem;
   margin: 0 0 1rem 0 !important;
 }
 
 .outOfStock {
-  color: #f44336;
+  color: #f8c06d;
   font-size: 0.875rem;
   margin: 0 0 1rem 0 !important;
 }
@@ -114,13 +118,14 @@
   font-size: 1rem !important;
   padding: 0.5rem 1rem !important;
   border-radius: 4px !important;
-  background-color: #1976d2 !important;
-  color: white !important;
+  background-color: #3b867f !important;
+  color: #f9f3e4 !important;
   transition: all 0.3s ease !important;
 }
 
 .cartButton:hover {
-  background-color: #1565c0 !important;
+  background-color: #0be0b8 !important;
+  color: #1d1e24 !important;
   transform: translateY(-1px);
 }
 

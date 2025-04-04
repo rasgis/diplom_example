@@ -14,6 +14,7 @@ const AllProducts: React.FC = () => {
     loading: productsLoading,
     error: productsError,
   } = useAppSelector((state) => state.products);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(products);
@@ -73,7 +74,10 @@ const AllProducts: React.FC = () => {
           <Grid container spacing={3} className={styles.productGrid}>
             {filteredProducts.map((product) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                <ProductCard product={product} />
+                <ProductCard
+                  product={product}
+                  isAuthenticated={isAuthenticated}
+                />
               </Grid>
             ))}
           </Grid>

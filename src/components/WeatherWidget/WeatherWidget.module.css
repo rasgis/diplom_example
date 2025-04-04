@@ -28,6 +28,7 @@
   width: 60px;
   height: 60px;
   animation: pulse 2s infinite;
+  box-shadow: 0 4px 12px rgba(11, 224, 184, 0.3);
   color: #0bbc9c;
 }
 
@@ -51,30 +52,65 @@
 
 .weatherWidget {
   background: linear-gradient(135deg, #1d1e24, #2a2b33);
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 4px 20px rgba(11, 188, 156, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(11, 224, 184, 0.3);
   transform: translateY(20px);
   opacity: 0;
   transition: all 0.5s ease;
-  width: 250px;
+  width: 280px;
   backdrop-filter: blur(5px);
-  border: 1px solid rgba(11, 188, 156, 0.2);
+  border: 1px solid rgba(11, 224, 184, 0.3);
   z-index: 10;
   position: relative;
   pointer-events: auto;
+  overflow: hidden;
+}
+
+.weatherWidget::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(11, 224, 184, 0.1),
+    transparent 70%
+  );
+  z-index: -1;
+}
+
+.weatherWidget::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(11, 224, 184, 0.1) 50%,
+    transparent 100%
+  );
+  animation: shine 8s infinite;
+  z-index: -1;
 }
 
 .weatherWidget.visible {
   transform: translateY(0);
   opacity: 1;
+  box-shadow: 0 8px 30px rgba(11, 224, 184, 0.4);
 }
 
 .location h2 {
-  margin: 0 0 10px 0;
-  font-size: 1.2rem;
+  margin: 0 0 15px 0;
+  font-size: 1.3rem;
   text-align: center;
   color: #0be0b8;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .weatherInfo {

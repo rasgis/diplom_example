@@ -1,6 +1,6 @@
 .header {
   background-color: #202026;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(11, 224, 184, 0.2);
   position: sticky;
   top: 0;
   z-index: 1000;

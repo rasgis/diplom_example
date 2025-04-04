@@ -10,9 +10,13 @@ import styles from "./ProductCard.module.css";
 
 interface ProductCardProps {
   product: Product;
+  isAuthenticated: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  isAuthenticated,
+}) => {
   const { items: categories } = useAppSelector((state) => state.categories);
   const dispatch = useAppDispatch();
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -55,17 +59,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <div className={styles.price}>
               {product.price} ₽ / {product.unitOfMeasure}
             </div>
-            <div className={styles.actions}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleAddToCart}
-                className={styles.cartButton}
-                startIcon={<AddShoppingCartIcon />}
-              >
-                В корзину
-              </Button>
-            </div>
+            {isAuthenticated && (
+              <div className={styles.actions}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAddToCart}
+                  className={styles.cartButton}
+                  startIcon={<AddShoppingCartIcon />}
+                >
+                  В корзину
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </Link>

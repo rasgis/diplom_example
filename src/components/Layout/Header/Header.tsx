@@ -61,12 +61,14 @@ const Header: React.FC = () => {
             </div>
           )}
 
-          <div className={styles.cart}>
-            <Link to={ROUTES.CART} className={styles.cartLink}>
-              <ShoppingCartIcon className={styles.cartIcon} />
-              <span>Корзина ({items.length})</span>
-            </Link>
-          </div>
+          {isAuthenticated && (
+            <div className={styles.cart}>
+              <Link to={ROUTES.CART} className={styles.cartLink}>
+                <ShoppingCartIcon className={styles.cartIcon} />
+                <span>Корзина ({items.length})</span>
+              </Link>
+            </div>
+          )}
 
           <div className={styles.auth}>
             {isAuthenticated ? (
